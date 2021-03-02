@@ -12,6 +12,110 @@ ChampionList::ChampionList(std::string filename)
 		m_championVector.push_back(champion);
 	}
 
+    fin.close();
+
+}
+
+void ChampionList::ChampionListPositions(std::string filename)
+{
+    //import the file
+    fin.open(filename);
+
+    std::string tmpString;
+    std::string posPlaceHolder;
+    std::size_t found;
+    int LastChamp = 0;
+
+    while (std::getline(fin, tmpString))  // same as: while (getline( myfile, line ).good())
+    {
+        for (unsigned int i = LastChamp; i < m_championVector.size(); i++)
+        {
+            //std::cout << i + 1 << " of " << m_championVector.size() << " Champions processed." << std::endl;
+
+            found = tmpString.find(AllChampionObjects[i].ChampionName + " ");
+            if (found != std::string::npos)
+            {
+                //remove champion name
+                tmpString.erase(0, AllChampionObjects[i].ChampionName.length() + 1); //We're erasing to make the search faster
+            }
+            else
+            {
+                continue;
+            }
+
+            while (true)
+            {
+                found = tmpString.find(" ");
+                if (found != std::string::npos)
+                {
+                    posPlaceHolder = tmpString.substr(0, found);
+
+                    //Mid
+                    found = posPlaceHolder.find("Mid");
+                    if (found != std::string::npos)
+                    {
+                        AllChampionObjects[i].m_position_array.push_back(1);
+                        tmpString.erase(found, 4);
+                        continue;
+
+                    }
+
+                    //Top
+                    found = posPlaceHolder.find("Top");
+                    if (found != std::string::npos)
+                    {
+                        AllChampionObjects[i].m_position_array.push_back(2);
+                        tmpString.erase(found, 4);
+                        continue;
+                    }
+
+                    //Jungle
+                    found = posPlaceHolder.find("Jungle");
+                    if (found != std::string::npos)
+                    {
+                        AllChampionObjects[i].m_position_array.push_back(3);
+                        tmpString.erase(found, 7);
+                        continue;
+                    }
+
+                    //ADC
+                    found = posPlaceHolder.find("ADC");
+                    if (found != std::string::npos)
+                    {
+                        AllChampionObjects[i].m_position_array.push_back(4);
+                        tmpString.erase(found, 4);
+                        continue;
+                    }
+
+                    //Support
+                    found = posPlaceHolder.find("Support");
+                    if (found != std::string::npos)
+                    {
+                        AllChampionObjects[i].m_position_array.push_back(5);
+                        tmpString.erase(found, 8);
+                        continue;
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
+
+
+            }
+
+           
+
+            LastChamp = i; //save last champ we searched
+            break;
+
+        }
+
+    }
+
+    fin.close();
+
 }
 
 
@@ -35,13 +139,36 @@ std::vector<std::string> ChampionList::Find_All_Files(std::string Path)
 
 bool ChampionList::Check_In_Database(std::string champInput)
 {
-
+    std::ifstream fin;
+    Champion tmpChamp;
+    counter tmpCounter;
     std::size_t found;
     for (unsigned int i = 0; i < m_databaseVector.size(); i++)
     {
         found = m_databaseVector[i].find(champInput);
         if (found != std::string::npos)
         {
+            //import data from file
+            tmpChamp.ChampionName = champInput;
+            fin.open(m_databaseVector[i]);
+            if (fin.is_open())
+            {
+                do 
+                {
+                    fin >> tmpCounter.m_counterName;
+                    fin >> tmpCounter.percent;
+                    tmpChamp.m_countersArray.push_back(tmpCounter);
+                    if (tmpChamp.m_countersArray.size() == 10) break;
+                } while (!fin.eof());
+            }
+            else
+            {
+                std::cout << "Failed to open file: " << m_databaseVector[i] << std::endl;
+            }
+            fin.close();
+            
+            AllChampionObjects.push_back(tmpChamp); //Add champion to list
+
             return true;
         }
     }

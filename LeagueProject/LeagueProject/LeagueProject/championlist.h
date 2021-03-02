@@ -18,6 +18,7 @@ class Champion {
 public:
 
 	std::vector<counter> m_countersArray;
+	std::vector<int> m_position_array;
 	std::string ChampionName;
 	void ProcessChampionHTML(std::string htmlFile);
 	Champion();
@@ -36,11 +37,15 @@ class ChampionList {
 
 public:
 
+	std::vector<Champion> AllChampionObjects;
+
 	ChampionList(std::string filename);
 	~ChampionList();
+
 	std::vector<std::string> GetChampionList();
-	std::vector<Champion> AllChampionObjects;
 	std::vector<std::string> Find_All_Files(std::string Path);
+
+	void ChampionListPositions(std::string filename);
 	bool Check_In_Database(std::string champInput);
 
 };
