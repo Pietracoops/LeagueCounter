@@ -43,7 +43,14 @@ int WebScrape::BuildWebAddress(std::string m_championName)
     //Remove spaces in champion name
     m_championName.erase(std::remove_if(m_championName.begin(), m_championName.end(), isspace), m_championName.end());
 
-    m_currentChampionURL = m_baseUrl + m_championName + "/counter";
+    if (m_championName.compare("Nunu&Willump") == 0)
+    {
+        m_currentChampionURL = m_baseUrl + "nunu" + "/counter";
+    }
+    else
+    {
+        m_currentChampionURL = m_baseUrl + m_championName + "/counter";
+    }
 
     return 0;
 }

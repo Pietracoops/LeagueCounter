@@ -4,6 +4,7 @@
 #include <fstream>
 #include <experimental/filesystem>
 #include <iostream>
+#include <exception>
 
 struct counter
 {

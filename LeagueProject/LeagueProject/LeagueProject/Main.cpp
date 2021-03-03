@@ -80,21 +80,30 @@ int main(void)
     MatchupCalculator Calculator(champions.AllChampionObjects);
 
     //Give input team
-    Calculator.InputTeam.TeamPicksStr.push_back("Aatrox");
+    Calculator.InputTeam.TeamPicksStr.push_back("Volibear");
     Calculator.InputTeam.TeamPicksStr.push_back("Fizz");
     Calculator.InputTeam.TeamPicksStr.push_back("Ivern");
-    Calculator.InputTeam.TeamPicksStr.push_back("Draven");
+    Calculator.InputTeam.TeamPicksStr.push_back("Tristana");
     Calculator.InputTeam.TeamPicksStr.push_back("Alistar");
 
     Calculator.ComputeOutputTeam();
+    Calculator.ComputeWinPercent();
 
+    std::cout << "===================== TEAM 1: INPUT TEAM ===============================" << std::endl;
+    std::cout << "Top Laner:        "      << Calculator.InputTeam.Top.ChampionName << std::endl;
+    std::cout << "Mid Laner:        "      << Calculator.InputTeam.Mid.ChampionName << std::endl;
+    std::cout << "Jungler Laner:    "      << Calculator.InputTeam.Jungler.ChampionName << std::endl;
+    std::cout << "ADC Laner:        "      << Calculator.InputTeam.ADC.ChampionName << std::endl;
+    std::cout << "Support Laner:    "      << Calculator.InputTeam.Support.ChampionName << std::endl;
+
+    std::cout << "===================== TEAM 2: OUTPUT TEAM ==============================" << std::endl;
     //Spit out recommended team
-    std::cout << "Top Laner: "      << Calculator.OutputTeam.Top.ChampionName << std::endl;
-    std::cout << "Mid Laner: "      << Calculator.OutputTeam.Mid.ChampionName << std::endl;
-    std::cout << "Jungler Laner: "  << Calculator.OutputTeam.Jungler.ChampionName << std::endl;
-    std::cout << "ADC Laner: "      << Calculator.OutputTeam.ADC.ChampionName << std::endl;
-    std::cout << "Support Laner: "  << Calculator.OutputTeam.Support.ChampionName << std::endl;
-
+    std::cout << "Top Laner:        "      << Calculator.OutputTeam.Top.ChampionName << std::endl;
+    std::cout << "Mid Laner:        "      << Calculator.OutputTeam.Mid.ChampionName << std::endl;
+    std::cout << "Jungler Laner:    "      << Calculator.OutputTeam.Jungler.ChampionName << std::endl;
+    std::cout << "ADC Laner:        "      << Calculator.OutputTeam.ADC.ChampionName << std::endl;
+    std::cout << "Support Laner:    "      << Calculator.OutputTeam.Support.ChampionName << std::endl;
+    std::cout << "WIN PERCENTAGE CALCULATED: "    << Calculator.WinPercent << std::endl;
 
 
     return 0;

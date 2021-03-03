@@ -143,6 +143,8 @@ bool ChampionList::Check_In_Database(std::string champInput)
     Champion tmpChamp;
     counter tmpCounter;
     std::size_t found;
+    std::string tmpStr;
+    bool success = false;
     for (unsigned int i = 0; i < m_databaseVector.size(); i++)
     {
         found = m_databaseVector[i].find(champInput);
@@ -150,13 +152,52 @@ bool ChampionList::Check_In_Database(std::string champInput)
         {
             //import data from file
             tmpChamp.ChampionName = champInput;
+            //std::cout << champInput << std::endl;
             fin.open(m_databaseVector[i]);
             if (fin.is_open())
             {
                 do 
                 {
                     fin >> tmpCounter.m_counterName;
-                    fin >> tmpCounter.percent;
+                    //Check for random string
+                    found = tmpCounter.m_counterName.find("&#x27;");
+                    if (found != std::string::npos)
+                    {
+                        //remove all beginning crap before this
+                        tmpCounter.m_counterName.erase(found, 6);
+                        tmpCounter.m_counterName.insert(found, "'");
+                    }
+
+                    while (true)
+                    {
+                        found = NULL;
+                        fin >> tmpStr;
+                        success = true;
+                        try
+                        {
+                            tmpCounter.percent = std::stof(tmpStr, &found);
+                        }
+                        catch(std::exception e)
+                        {
+                            if (tmpStr.compare("&amp;") == 0)
+                            {
+                                tmpCounter.m_counterName += " &";
+                            }
+                            else
+                            {
+                                tmpCounter.m_counterName += " " + tmpStr;
+                            }
+
+                            success = false;
+                        }
+
+                        if (success == true)
+                        {
+                            break;
+                        }
+                        
+                    }
+
                     tmpChamp.m_countersArray.push_back(tmpCounter);
                     if (tmpChamp.m_countersArray.size() == 10) break;
                 } while (!fin.eof());
@@ -207,7 +248,11 @@ void Champion::ProcessChampionHTML(std::string htmlFile)
 
     counter CounterChamp;
 
-    //&#x27; is = to "-"
+    //std::ofstream fout;
+    //fout.open("output.html");
+    //fout << htmlFile;
+    //fout.close();
+    //&#x27; is = to "'"
 
     //This finds the current champ we're looking for
     std::size_t found = htmlFile.find("champion-name");
