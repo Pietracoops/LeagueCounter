@@ -91,7 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)depends\libcurl-vc16-x86-debug-static-ipv6-sspi-schannel\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\;$(SolutionDir)depends\libcurl-vc16-x86-debug-static-ipv6-sspi-schannel\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,11 +151,13 @@
     <ClCompile Include="championlist.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="matchupcalculator.cpp" />
+    <ClCompile Include="playerstats.cpp" />
     <ClCompile Include="webscrape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="championlist.h" />
     <ClInclude Include="matchupcalculator.h" />
+    <ClInclude Include="playerstats.h" />
     <ClInclude Include="webscrape.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

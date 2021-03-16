@@ -217,6 +217,14 @@ bool ChampionList::Check_In_Database(std::string champInput)
 }
 
 
+void ChampionTierListImport(std::string filename)
+{
+
+
+}
+
+
+
 ChampionList::~ChampionList()
 {
 

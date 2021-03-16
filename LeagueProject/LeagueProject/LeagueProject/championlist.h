@@ -6,6 +6,7 @@
 #include <iostream>
 #include <exception>
 
+
 struct counter
 {
 	std::string m_counterName;
@@ -17,10 +18,33 @@ class Champion {
 	
 
 public:
-
-	std::vector<counter> m_countersArray;
-	std::vector<int> m_position_array;
 	std::string ChampionName;
+	std::vector<int> m_position_array;
+	std::vector<counter> m_countersArray;
+	
+	int Wins;
+	int Losses;
+	int GamesPlayed;
+	float WinRatio;
+	//KDA
+	float Kills;
+	float Deaths;
+	float Assists;
+
+	int Gold;
+	float CS;
+	int MaxKills;
+	int MaxDeaths;
+	int AverageDamageDealt;
+	int AverageDamageTaken;
+
+	int DoubleKills;
+	int TripleKills;
+	int QuadraKills;
+	int PentaKills;
+
+
+	
 	void ProcessChampionHTML(std::string htmlFile);
 	Champion();
 	~Champion();
@@ -47,6 +71,7 @@ public:
 	std::vector<std::string> Find_All_Files(std::string Path);
 
 	void ChampionListPositions(std::string filename);
+	void ChampionTierListImport(std::string filename);
 	bool Check_In_Database(std::string champInput);
 
 };
