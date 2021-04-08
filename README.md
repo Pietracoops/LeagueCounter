@@ -83,7 +83,7 @@ is used to enter two teams into the ClashPredictor function.
 ```
 The output can be retrieved by doing the following:
 ```
- std::cout << "================================ RESULTS ==============================" << std::endl;
+    std::cout << "================================ RESULTS ==============================" << std::endl;
     std::cout << "PREDICTED POSITIONS:" << std::endl;
     std::cout << "Top Laner:     "  << Calculator.ClashEnemyTeam.TeamPlayers[1].PlayerName << std::endl;
     std::cout << "Jungle Laner:  "  << Calculator.ClashEnemyTeam.TeamPlayers[2].PlayerName << std::endl;
@@ -96,6 +96,46 @@ The output can be retrieved by doing the following:
     for (unsigned int i = 0; i < Calculator.ClashEnemyTeam.MidBans.size(); i++)
     {
         std::cout << Calculator.ClashEnemyTeam.MidBans[i].ChampionName << std::endl;
+        if (i > 5)
+        {
+            break;
+        }
+    }
+
+    std::cout << "RECOMMENDED TOP BANS IN ORDER OF PRIORITY:" << std::endl;
+    for (unsigned int i = 0; i < Calculator.ClashEnemyTeam.TopBans.size(); i++)
+    {
+        std::cout << Calculator.ClashEnemyTeam.TopBans[i].ChampionName << std::endl;
+        if (i > 5)
+        {
+            break;
+        }
+    }
+
+    std::cout << "RECOMMENDED JUNGLE BANS IN ORDER OF PRIORITY:" << std::endl;
+    for (unsigned int i = 0; i < Calculator.ClashEnemyTeam.JunglerBans.size(); i++)
+    {
+        std::cout << Calculator.ClashEnemyTeam.JunglerBans[i].ChampionName << std::endl;
+        if (i > 5)
+        {
+            break;
+        }
+    }
+
+    std::cout << "RECOMMENDED ADC BANS IN ORDER OF PRIORITY:" << std::endl;
+    for (unsigned int i = 0; i < Calculator.ClashEnemyTeam.ADCBans.size(); i++)
+    {
+        std::cout << Calculator.ClashEnemyTeam.ADCBans[i].ChampionName << std::endl;
+        if (i > 5)
+        {
+            break;
+        }
+    }
+
+    std::cout << "RECOMMENDED SUPPORT BANS IN ORDER OF PRIORITY:" << std::endl;
+    for (unsigned int i = 0; i < Calculator.ClashEnemyTeam.SupportBans.size(); i++)
+    {
+        std::cout << Calculator.ClashEnemyTeam.SupportBans[i].ChampionName << std::endl;
         if (i > 5)
         {
             break;

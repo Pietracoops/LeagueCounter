@@ -72,7 +72,6 @@ int main(void)
     PlayerObject.Position = 1;
     team1.push_back(PlayerObject);
 
-
     team2.push_back("ATownSwinger");
     team2.push_back("cyhe66");
     team2.push_back("CTYPanda");
