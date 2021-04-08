@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -91,13 +91,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\;$(SolutionDir)depends\libcurl-vc16-x86-debug-static-ipv6-sspi-schannel\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\OpenSSL-Win32\include\;E:\dev\vcpkg\installed\x64-windows\include;$(SolutionDir)depends\libcurl-vc16-x86-debug-static-ipv6-sspi-schannel\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libcurl_a_debug.lib;Ws2_32.lib;Advapi32.lib;Crypt32.lib;Normaliz.lib;Wldap32.lib;libxml2-static.lib;libiconv-static.lib;libz-static.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\zlib-win-build\build-VS2019-MT\Debug;$(SolutionDir)..\libiconv-win-build\build-VS2019-MT\Debug\;$(SolutionDir)..\libxml2-win-build\build-VS2019-MT\Debug\;$(SolutionDir)depends\libcurl-vc16-x86-debug-static-ipv6-sspi-schannel\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libcurl_a_debug.lib;Ws2_32.lib;Advapi32.lib;Crypt32.lib;Normaliz.lib;Wldap32.lib;libxml2-static.lib;libiconv-static.lib;libz-static.lib;libcrypto32MTd.lib;libssl32MTd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\OpenSSL-Win32\lib\VC\static\;$(SolutionDir)..\zlib-win-build\build-VS2019-MT\Debug;$(SolutionDir)..\libiconv-win-build\build-VS2019-MT\Debug\;$(SolutionDir)..\libxml2-win-build\build-VS2019-MT\Debug\;$(SolutionDir)depends\libcurl-vc16-x86-debug-static-ipv6-sspi-schannel\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -148,15 +148,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="applicationmanip.cpp" />
     <ClCompile Include="championlist.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="matchupcalculator.cpp" />
+    <ClCompile Include="networkclient.cpp" />
+    <ClCompile Include="networkserver.cpp" />
     <ClCompile Include="playerstats.cpp" />
     <ClCompile Include="webscrape.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="applicationmanip.h" />
     <ClInclude Include="championlist.h" />
     <ClInclude Include="matchupcalculator.h" />
+    <ClInclude Include="networkclient.h" />
+    <ClInclude Include="networkserver.h" />
     <ClInclude Include="playerstats.h" />
     <ClInclude Include="webscrape.h" />
   </ItemGroup>

@@ -5,7 +5,7 @@
 #include <experimental/filesystem>
 #include <iostream>
 #include <exception>
-
+#include "webscrape.h"
 
 struct counter
 {
@@ -59,6 +59,7 @@ class ChampionList {
 	std::ifstream fin;
 	std::vector<std::string> m_databaseVector;
 
+	std::vector<std::string> Clist;
 
 public:
 
@@ -73,6 +74,7 @@ public:
 	void ChampionListPositions(std::string filename);
 	void ChampionTierListImport(std::string filename);
 	bool Check_In_Database(std::string champInput);
+	void Initialization();
 
 };
 

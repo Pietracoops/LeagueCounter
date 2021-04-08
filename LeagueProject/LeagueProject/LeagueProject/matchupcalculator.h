@@ -2,7 +2,9 @@
 #include "championlist.h"
 #include "playerstats.h"
 #include <algorithm>
-
+#include <openssl/bio.h>
+#include <openssl/err.h>
+#include <openssl/ssl.h>
 
 
 

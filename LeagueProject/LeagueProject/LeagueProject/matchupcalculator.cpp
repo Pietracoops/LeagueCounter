@@ -621,7 +621,7 @@ std::vector<int> MatchupCalculator::GetOptimalPositions(std::vector<std::vector<
 		sum += positionWeights[combinationsMatrix[i][3]][3];
 		sum += positionWeights[combinationsMatrix[i][4]][4];
 		couple.push_back(sum);
-		couple.push_back(i);
+		couple.push_back((float)i);
 		sums.push_back(couple);
 		couple.clear();
 		sum = 0;
@@ -632,11 +632,11 @@ std::vector<int> MatchupCalculator::GetOptimalPositions(std::vector<std::vector<
 	std::sort(sums.begin(), sums.end(), std::greater<std::vector<float>>()); //ranks
 
 	std::vector<int> output;
-	output.push_back(combinationsMatrix[sums[0][1]][0]);
-	output.push_back(combinationsMatrix[sums[0][1]][1]);
-	output.push_back(combinationsMatrix[sums[0][1]][2]);
-	output.push_back(combinationsMatrix[sums[0][1]][3]);
-	output.push_back(combinationsMatrix[sums[0][1]][4]);
+	output.push_back(combinationsMatrix[(u_int)sums[0][1]][0]);
+	output.push_back(combinationsMatrix[(u_int)sums[0][1]][1]);
+	output.push_back(combinationsMatrix[(u_int)sums[0][1]][2]);
+	output.push_back(combinationsMatrix[(u_int)sums[0][1]][3]);
+	output.push_back(combinationsMatrix[(u_int)sums[0][1]][4]);
 
 	return output;
 }
@@ -650,8 +650,8 @@ std::vector<int> MatchupCalculator::ClashPredictorOptimizationMatrix(std::vector
 	//Normalize the Rank
 	for (unsigned int i = 0; i < RankMatrixInput.size(); i++)
 	{
-		Couple.push_back(RankMatrixInput[i][0] / 100.0);
-		Couple.push_back(RankMatrixInput[i][1]);
+		Couple.push_back((float)(RankMatrixInput[i][0] / 100.0));
+		Couple.push_back((float)RankMatrixInput[i][1]);
 		RankMatrixInputNormalized.push_back(Couple);
 		Couple.clear();
 	}
@@ -688,11 +688,11 @@ std::vector<Champion> MatchupCalculator::ClashPredictorGetPositionChamps(Player 
 	{
 		ChampMatchesPlayerPosition = false;
 
-		score += InputPlayer.PlayedChampions[i].GamesPlayed * 0.80;
-		score += InputPlayer.PlayedChampions[i].WinRatio * 0.10;
-		score += ((InputPlayer.PlayedChampions[i].Kills + InputPlayer.PlayedChampions[i].Assists) / InputPlayer.PlayedChampions[i].Deaths) * 0.075;
-		score += InputPlayer.PlayedChampions[i].CS * 0.05;
-		score += (InputPlayer.PlayedChampions[i].Gold / 1000) * 0.075;
+		score += (float)(InputPlayer.PlayedChampions[i].GamesPlayed * 0.80);
+		score += (float)(InputPlayer.PlayedChampions[i].WinRatio * 0.10);
+		score += (float)(((InputPlayer.PlayedChampions[i].Kills + InputPlayer.PlayedChampions[i].Assists) / InputPlayer.PlayedChampions[i].Deaths) * 0.075);
+		score += (float)(InputPlayer.PlayedChampions[i].CS * 0.05);
+		score += (float)((InputPlayer.PlayedChampions[i].Gold / 1000) * 0.075);
 
 		for (unsigned int j = 0; j < m_championArchive.size(); j++)
 		{
@@ -718,7 +718,7 @@ std::vector<Champion> MatchupCalculator::ClashPredictorGetPositionChamps(Player 
 		}
 		
 		subset.push_back(score);
-		subset.push_back(i);
+		subset.push_back((float)i);
 		ChampionRanks.push_back(subset);
 		subset.clear();
 		score = 0;
@@ -729,7 +729,7 @@ std::vector<Champion> MatchupCalculator::ClashPredictorGetPositionChamps(Player 
 	Champion tmpChamp;
 	for (unsigned int i = 0; i < ChampionRanks.size(); i++)
 	{
-		tmpChamp = InputPlayer.PlayedChampions[ChampionRanks[i][1]];
+		tmpChamp = InputPlayer.PlayedChampions[(u_int)ChampionRanks[i][1]];
 		Bans.push_back(tmpChamp);
 	}
 

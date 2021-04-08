@@ -137,6 +137,60 @@ std::vector<std::string> ChampionList::Find_All_Files(std::string Path)
     return Files;
 }
 
+void ChampionList::Initialization()
+{
+
+
+    std::string htmlBuffer;
+    //ChampionList champions("LeagueChampions.csv");
+    Champion tmpChamp;
+    WebScrape webscraper;
+    std::ofstream fout;
+    std::string databasePath = "E:\\dev\\LeagueCounter\\LeagueProject\\LeagueProject\\LeagueProject\\database\\";
+
+    Clist = GetChampionList();
+    Find_All_Files(databasePath);
+
+
+    //webscraper.BuildChampionTierList();  //this needs work because of react web page
+    webscraper.GetSummonerStats();
+
+
+    for (unsigned int i = 0; i < Clist.size(); i++)
+    {
+        //std::cout << i + 1 << " of " << Clist.size() << " Champions processed." << std::endl;
+        if (Check_In_Database(Clist[i])) // If already in database then proceed to next champ
+        {
+            continue;
+        }
+
+        webscraper.BuildWebAddress(Clist[i]);                   //build the request address
+        webscraper.ScrapeHTMLChampion(htmlBuffer);              //Retrieve html as string
+
+        tmpChamp.ChampionName = Clist[i];                       //Fill champion name
+        tmpChamp.ProcessChampionHTML(htmlBuffer);               //Fetch champion counters from html
+        AllChampionObjects.push_back(tmpChamp);  //Insert champion object into full champion list
+
+        //Export into database
+        fout.open(databasePath + Clist[i] + ".txt");
+        for (unsigned int i = 0; i < tmpChamp.m_countersArray.size(); i++)
+        {
+            fout << tmpChamp.m_countersArray[i].m_counterName << " " << tmpChamp.m_countersArray[i].percent << std::endl;
+            std::cout << tmpChamp.m_countersArray[i].m_counterName << " " << tmpChamp.m_countersArray[i].percent << std::endl;
+        }
+        fout.close();
+
+        //Clear
+        tmpChamp.Reset();
+        htmlBuffer = "";
+
+    }
+
+
+
+}
+
+
 bool ChampionList::Check_In_Database(std::string champInput)
 {
     std::ifstream fin;
