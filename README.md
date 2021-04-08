@@ -1,4 +1,4 @@
-**LeagueCounter is still under production.**
+**LeagueCounter is still under development.**
 
 ## Welcome to LeagueCounter!
 
@@ -6,7 +6,7 @@ This project aims to help C++ developers connect to and interact with League of 
 
 ## Getting Started
 
-[![Vcpkg package](https://repology.org/badge/version-for-repo/vcpkg/cpprestsdk.svg)]
+![Vcpkg package](https://repology.org/badge/version-for-repo/vcpkg/cpprestsdk.svg)
 
 ## How to Use
 
