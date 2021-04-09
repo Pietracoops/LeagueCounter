@@ -1,30 +1,25 @@
-#include <cpprest/http_listener.h>
-#include <cpprest/json.h>
-#pragma comment(lib, "cpprest_2_10")
 
-using namespace web;
-using namespace web::http;
-using namespace web::http::experimental::listener;
+#include "networkserver.h"
 
-#include <iostream>
-#include <map>
-#include <set>
-#include <string>
-using namespace std;
 
-#define TRACE(msg)            wcout << msg
-#define TRACE_ACTION(a, k, v) wcout << a << L" (" << k << L", " << v << L")\n"
+RESTServer::RESTServer()
+{
 
-map<utility::string_t, utility::string_t> dictionary;
+}
 
-void display_json(
-    json::value const& jvalue,
-    utility::string_t const& prefix)
+RESTServer::~RESTServer()
+{
+
+}
+
+
+
+void RESTServer::display_json(json::value const& jvalue, utility::string_t const& prefix)
 {
     wcout << prefix << jvalue.serialize() << endl;
 }
 
-void handle_get(http_request request)
+void RESTServer::handle_get(http_request request)
 {
     TRACE(L"\nhandle GET\n");
 
@@ -41,15 +36,13 @@ void handle_get(http_request request)
     request.reply(status_codes::OK, answer);
 }
 
-void handle_request(
-    http_request request,
-    function<void(json::value const&, json::value&)> action)
+void RESTServer::handle_request(http_request request, function<void(json::value const&, json::value&)> action)
 {
     auto answer = json::value::object();
 
     request
         .extract_json()
-        .then([&answer, &action](pplx::task<json::value> task) {
+        .then([&answer, &action, this](pplx::task<json::value> task) {
         try
         {
             auto const& jvalue = task.get();
@@ -73,7 +66,7 @@ void handle_request(
             request.reply(status_codes::OK, answer);
 }
 
-void handle_post(http_request request)
+void RESTServer::handle_post(http_request request)
 {
     TRACE("\nhandle POST\n");
 
@@ -101,7 +94,7 @@ void handle_post(http_request request)
         });
 }
 
-void handle_put(http_request request)
+void RESTServer::handle_put(http_request request)
 {
     TRACE("\nhandle PUT\n");
 
@@ -133,7 +126,7 @@ void handle_put(http_request request)
         });
 }
 
-void handle_del(http_request request)
+void RESTServer::handle_del(http_request request)
 {
     TRACE("\nhandle DEL\n");
 
@@ -167,14 +160,14 @@ void handle_del(http_request request)
         });
 }
 
-int main()
+void RESTServer::Launch()
 {
     http_listener listener(L"http://localhost/restdemo");
 
-    listener.support(methods::GET, handle_get);
-    listener.support(methods::POST, handle_post);
-    listener.support(methods::PUT, handle_put);
-    listener.support(methods::DEL, handle_del);
+    listener.support(methods::GET, std::bind(&handle_get, this, std::placeholders::_1));
+    listener.support(methods::POST, std::bind(&handle_post, this, std::placeholders::_1));
+    listener.support(methods::PUT, std::bind(&handle_put, this, std::placeholders::_1));
+    listener.support(methods::DEL, std::bind(&handle_del, this, std::placeholders::_1));
 
     try
     {
@@ -190,5 +183,4 @@ int main()
         wcout << e.what() << endl;
     }
 
-    return 0;
 }
